@@ -3,56 +3,58 @@ import { UserDocument, User } from './schemas/user.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
-import { JwtService } from '@nestjs/jwt';
 import { CreateUserDto } from './dto/create-user.dto';
-import { v4 as uuidv4 } from 'uuid';
+import { PlatformJwtService } from 'src/utils/jwt.service';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectModel(User.name) private userModel: Model<UserDocument>,
-    private jwtService: JwtService,
+    private platformJwtService: PlatformJwtService,
   ) {}
 
   async create(createUserDto: CreateUserDto) {
-    if (!(await this.doesConfirmPasswordMatch(createUserDto))) {
+    if (this.checkIfConfirmPasswordIsWrong(createUserDto))
       throw new UnauthorizedException();
-    } else if (!(await this.doesUserExist(createUserDto))) {
-      const salt = await bcrypt.genSalt();
-      createUserDto.password = await bcrypt.hash(createUserDto.password, salt);
 
-      createUserDto.id = uuidv4();
-
-      const createdUser = await new this.userModel(createUserDto).save();
-
-      const payload = {
-        username: createdUser.username,
-        sub: createdUser.id,
-      };
-      return {
-        access_token: await this.jwtService.signAsync(payload),
-      };
-    } else {
+    if (await this.doesUserExist(createUserDto))
       throw new UnauthorizedException();
-    }
+
+    let hashedPassword = await this.hashUserPassword(createUserDto);
+
+    const createdUser = await new this.userModel({
+      email: createUserDto.email,
+      passwordhash: hashedPassword,
+      name: createUserDto.name,
+      username: createUserDto.username,
+      picture: createUserDto.picture,
+    } as User).save();
+
+    return this.platformJwtService.genJwtToken(createdUser);
   }
 
-  async findOne(username: string): Promise<User | undefined> {
-    return this.userModel.findOne({ username });
+  async findByUsername(username: string): Promise<UserDocument | undefined> {
+    return this.userModel.findOne({ username: username });
   }
 
   async doesUserExist(user: CreateUserDto): Promise<true | false> {
     if (
+      //or opperator in mongos, promise.all
       (await this.userModel.findOne({ username: user.username })) != null ||
-      (await this.userModel.findOne({ username: user.email })) != null
+      (await this.userModel.findOne({ email: user.email })) != null
     ) {
       return true;
     }
     return false;
   }
 
-  async doesConfirmPasswordMatch(user: CreateUserDto): Promise<true | false> {
-    if ((await user.password) == user.confirmpassword) return true;
+  private checkIfConfirmPasswordIsWrong(user: CreateUserDto) {
+    if (user.password != user.confirmpassword) return true;
     return false;
+  }
+
+  async hashUserPassword(createUserDto: CreateUserDto): Promise<String> {
+    const salt = await bcrypt.genSalt();
+    return await bcrypt.hash(createUserDto.password, salt);
   }
 }

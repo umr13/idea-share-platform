@@ -5,15 +5,12 @@ import { UserSchema, User } from './schemas/user.schema';
 import { UsersController } from './users.controller';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './constants';
+import { PlatformJwtModule } from 'src/utils/jwt.module';
 
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
-    JwtModule.register({
-      global: true,
-      secret: jwtConstants.secret,
-      signOptions: { expiresIn: '60s' },
-    }),
+    PlatformJwtModule,
   ],
   providers: [UsersService],
   exports: [UsersService],
