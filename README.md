@@ -1,4 +1,4 @@
-**Idea Dump: A platform to post about your ideas.**
+**Idea Dump: A platform where you can post, comment and like Ideas.**
 
 Don't forget to set env variables!
 {project DIR}/.env/development.env
