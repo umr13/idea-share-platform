@@ -7,8 +7,8 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { IdeasModule } from './ideas/ideas.module';
 import { JwtModule } from '@nestjs/jwt';
-import { jwtConstants } from './users/constants';
-import { PlatformJwtModule } from './utils/jwt.module';
+import { jwtConstants } from './utils/constants';
+import { PlatformJwtModule } from './utils/utils.module';
 
 @Module({
   imports: [
@@ -19,7 +19,7 @@ import { PlatformJwtModule } from './utils/jwt.module';
     AuthModule,
     UsersModule,
     IdeasModule,
-    PlatformJwtModule
+    PlatformJwtModule,
   ],
   controllers: [AppController],
   providers: [AppService],

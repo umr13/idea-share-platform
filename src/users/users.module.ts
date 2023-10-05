@@ -4,8 +4,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { UserSchema, User } from './schemas/user.schema';
 import { UsersController } from './users.controller';
 import { JwtModule } from '@nestjs/jwt';
-import { jwtConstants } from './constants';
-import { PlatformJwtModule } from 'src/utils/jwt.module';
+import { jwtConstants } from '../utils/constants';
+import { PlatformJwtModule } from 'src/utils/utils.module';
 
 @Module({
   imports: [
