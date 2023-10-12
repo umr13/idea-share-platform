@@ -23,7 +23,7 @@ export class IdeasService {
   async create(createIdeaDto: CreateIdeaDto): Promise<String> {
     await new this.ideaModel({
       content: createIdeaDto.postContent,
-      username: createIdeaDto.username,
+      username: this.usersConstants.getUserName(),
     } as Idea).save();
 
     return 'Idea Post created successfully!';
@@ -69,6 +69,6 @@ export class IdeasService {
       username: this.usersConstants.getUserName(),
     } as IdeaComment).save();
 
-    return 'Idea Comment Post created successfully!';
+    return 'Commented successfully!';
   }
 }
