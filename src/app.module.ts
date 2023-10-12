@@ -6,8 +6,6 @@ import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { IdeasModule } from './ideas/ideas.module';
-import { JwtModule } from '@nestjs/jwt';
-import { jwtConstants } from './utils/constants';
 import { PlatformJwtModule } from './utils/utils.module';
 
 @Module({

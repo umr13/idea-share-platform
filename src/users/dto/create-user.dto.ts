@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsAlphanumeric, IsEmail, IsNotEmpty, IsString } from 'class-validator';
-import { Transform } from 'class-transformer';
+import { IsAlphanumeric, IsEmail, IsNotEmpty, IsString, validate } from 'class-validator';
 import * as sanitizeHtml from 'sanitize-html';
+import { Transform } from 'class-transformer';
 
 export class CreateUserDto {
   @ApiProperty()
@@ -30,6 +30,6 @@ export class CreateUserDto {
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
-  //@Transform((params: TransformFnParams) => sanitizeHtml(params.value)) //broken import
+  @Transform((params: any) => sanitizeHtml(params.value)) //broken import
   picture: string;
 }
