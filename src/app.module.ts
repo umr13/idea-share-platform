@@ -7,6 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { IdeasModule } from './ideas/ideas.module';
 import { PlatformJwtModule } from './utils/utils.module';
+import { UsersConstants } from './users/user.constants';
 
 @Module({
   imports: [
@@ -20,6 +21,6 @@ import { PlatformJwtModule } from './utils/utils.module';
     PlatformJwtModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, UsersConstants],
 })
 export class AppModule {}
