@@ -10,6 +10,9 @@ export class Idea {
 
   @Prop()
   username: string;
+
+  @Prop()
+  likes: number;
 }
 
 export const IdeaSchema = SchemaFactory.createForClass(Idea);
