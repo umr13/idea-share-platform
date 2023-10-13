@@ -7,10 +7,10 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const config = new DocumentBuilder()
-    .setTitle('Idea Dump API')
-    .setDescription('The Backend APIs for the Idea Dump platform.')
+    .setTitle('Idea Share API')
+    .setDescription('The Backend APIs for the Idea Share platform.')
     .setVersion('1.0')
-    .addTag('idea-dump')
+    .addTag('idea-share')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api/v1/swagger-ui', app, document);
