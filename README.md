@@ -13,4 +13,4 @@ Don't forget to set env variables!
 5- Comment on a Post
 6- Thinkers' Choice Leaderboard
 
-<img src="Idea Dump - DB.png" width="500" height=auto></img>
+<img src="Idea Share - DB.png" width="500" height=auto></img>
