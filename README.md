@@ -1,4 +1,4 @@
-**Idea Dump: A platform where you can post, comment and like Ideas.**
+**Idea Share: A platform where you can post, comment and like Ideas.**
 
 Don't forget to set env variables!
 {project DIR}/.env/development.env
@@ -13,4 +13,4 @@ Don't forget to set env variables!
 5- Comment on a Post
 6- Thinkers' Choice Leaderboard
 
-<img src="Idea Dump - DB.png" width="500" height=auto></img>
+<img src="Idea Share - DB.png" width="500" height=auto></img>

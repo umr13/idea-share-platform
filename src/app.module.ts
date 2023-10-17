@@ -13,7 +13,7 @@ import { UsersConstants } from './users/user.constants';
   imports: [
     ConfigModule.forRoot({ envFilePath: '.env/development.env' }),
     MongooseModule.forRoot(
-      `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@mytestdb.heiiv7a.mongodb.net/?retryWrites=true&w=majority`,
+      `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_URL}/?retryWrites=true&w=majority&dbName=${process.env.SUB_DB_NAME}`,
     ),
     AuthModule,
     UsersModule,

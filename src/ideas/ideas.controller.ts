@@ -4,12 +4,10 @@ import {
   Get,
   Post,
   UseGuards,
-  UseInterceptors,
 } from '@nestjs/common';
 import { CreateIdeaDto } from './dto/create-idea.dto';
 import { IdeasService } from './ideas.service';
 import { AuthGuard } from 'src/utils/platform-jwt.guard';
-import { IdeaInterceptor } from 'src/interceptors/idea.interceptor';
 import { LikeIdeaDto } from './dto/like-idea.dto';
 import { CreateCommentDto } from './dto/comment-idea.dto';
 
@@ -19,16 +17,17 @@ export class IdeasController {
 
   @UseGuards(AuthGuard)
   @Post('create')
-  @UseInterceptors(IdeaInterceptor)
   create(@Body() createIdeaDto: CreateIdeaDto) {
     return this.ideasService.create(createIdeaDto);
   }
 
+  @UseGuards(AuthGuard)
   @Get('posts')
   fetchIdeas() {
     return this.ideasService.fetchIdeas();
   }
 
+  @UseGuards(AuthGuard)
   @Get('idealikes')
   fetchIdeaLikes() {
     return this.ideasService.fetchIdeaLikes();
